@@ -49,7 +49,7 @@ def converter(message: telebot.types.Message):
 
     except Exception as e:
         traceback.print_tb(e.__traceback__)
-        bot.reply_to(message, f'\n{e}')
+        bot.reply_to(message, f'Ошибка обработки \n{e}')
     else:
         bot.reply_to(message, answer)
 
