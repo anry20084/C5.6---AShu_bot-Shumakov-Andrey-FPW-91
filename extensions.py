@@ -11,12 +11,12 @@ class MoneyConverter(Exception):                    # класс отправк�
     @staticmethod                                   # который отлавливает ошибки, а также принимает три аргумента
     def get_price(base, quote, amount):             # и возвращает сообщение со стоимостью конвертации
         try:
-            base_ticker = exchanges[base.lower()]
+            base_ticker = exchanges[base]
         except KeyError:
             raise APIException(f'Ошибка обработки валюты - {base}')
 
         try:
-            quote_ticker = exchanges[quote.lower()]
+            quote_ticker = exchanges[quote]
         except KeyError:
             raise APIException(f'Ошибка обработки валюты - {quote}')
 
@@ -28,11 +28,10 @@ class MoneyConverter(Exception):                    # класс отправк�
         if base_ticker == quote_ticker:
             raise APIException('Нет смысла в этом действии!')
 
-        header = {'apikey': 'NZyY3M9ZJ6gEIdgN1yhbNnF0bPdOXq9n'}
-        r = requests.get(f'https://api.apilayer.com/currency_data/live?base={base_ticker}&symbols={quote_ticker}',
+        header = {'apikey': '437fbd396e4ec405a7b2ca1bd92c7c42425c231e264f9f7baf251a1882de4c07'}
+        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_ticker}&tsyms={quote_ticker}',
                          header)
 
-        price = json.loads(r.content)['quotes'][base_ticker + quote_ticker] * amount
-        price = round(price, 2)
+        price = round(json.loads(r.content)[quote_ticker] * amount, 2)
         message = f'Цена {amount} {exchanges[base]} в {exchanges[quote]} составила {price} {exchanges[quote]}'
         return message
