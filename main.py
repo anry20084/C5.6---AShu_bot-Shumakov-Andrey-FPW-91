@@ -39,7 +39,7 @@ def values(message: telebot.types.Message):
 
 @bot.message_handler(content_types=['text'])  # обработчик сообщений для конвертации валют и отлавливания ошибок
 def converter(message: telebot.types.Message):
-    values = message.text.split(' ')
+    values = message.text.lower().split(' ')
     try:
         if len(values) != 3:
             raise APIException('Введите 3 параметра!')
