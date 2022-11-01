@@ -1,6 +1,6 @@
 import requests  # импорт модуля для отправки всех видов HTTP-запросов
 import json  # импорт модуля для парсинга полученных ответов
-from config import exchanges, header  # импорт списка валют из файла config.py
+from config import exchanges, header  # импорт списка валют и APIkey из файла config.py
 
 
 class APIException(Exception):  # класс исключений
