@@ -1,6 +1,6 @@
 import requests  # импорт модуля для отправки всех видов HTTP-запросов
 import json  # импорт модуля для парсинга полученных ответов
-from config import exchanges  # импорт списка валют из файла config.py
+from config import exchanges, header  # импорт списка валют из файла config.py
 
 
 class APIException(Exception):  # класс исключений
@@ -28,7 +28,6 @@ class MoneyConverter(Exception):                    # класс отправк�
         if base_ticker == quote_ticker:
             raise APIException('Нет смысла в этом действии!')
 
-        header = {'apikey': '437fbd396e4ec405a7b2ca1bd92c7c42425c231e264f9f7baf251a1882de4c07'}
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_ticker}&tsyms={quote_ticker}',
                          header)
 
